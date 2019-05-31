@@ -7,31 +7,37 @@ var L = 0;
 var G = 10;
 var lettersGuessed = [];
 
+//Randomly chooses a letter from the alphabet array
+var computerChoice = alphabet[Math.floor(Math.random() * alphabet.length)];
+console.log(computerChoice)
+
+function computerPlay () {
+    computerChoice = alphabet[Math.floor(Math.random() * alphabet.length)];
+    console.log(computerChoice);
+}
 //This function is run when the user presses a key
 document.onkeyup = function (event) {
 
     //determines user key input
     var userKey = event.key;
 
-    //Randomly chooses a letter from the alphabet array
-    var computerChoice = alphabet[Math.floor(Math.random() * alphabet.length)];
-    console.log(computerChoice)
-
     //Logic
     if (userKey === computerChoice) {
         W+= 1;
         G = 10;
         lettersGuessed = [];
-    } else {
+        computerPlay();
+    } 
+    if (userKey !== computerChoice) {
         G--;
         lettersGuessed.push(" " + userKey);
-    } 
+    }
     if (W == 5) {
         W = 0;
         G = 10; 
         L = 0;
         letersGuessed = [];
-        alert("Flawless Victory!");
+        alert("Victory!");
     }
     if (G == 0) {
         L++;
@@ -45,8 +51,7 @@ document.onkeyup = function (event) {
         letersGuessed = [];
         alert("Game Over!");
     }
-
-    //Turn user display into variables
+    //Output to HTML
     document.getElementById("wins").innerHTML = W;
     document.getElementById("losses").innerHTML = L;
     document.getElementById("guesses").innerHTML = G;
